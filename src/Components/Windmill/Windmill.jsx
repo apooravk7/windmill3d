@@ -61,38 +61,42 @@ const Box3d = () =>{
 //     );
 //   };
 
-// const WindMill = ({ position }) => {
-//     const { scene, nodes } = useGLTF("/Untitled.glb");
-//     const rotorRef = useRef();
+const WindMill = ({ position }) => {
+    const { scene, nodes } = useGLTF("/WindTest2.glb");
+    const rotorRef = useRef();
+    const bladeRef = useRef();
+    useFrame(() => {
+      if (rotorRef.current) {
+        rotorRef.current.rotation.z += 0.01; // Adjust the speed as needed
+      }
+
+      if (bladeRef.current) {
+        bladeRef.current.rotation.y += 0.01; // Adjust the speed as needed
+      }
+    });
   
-//     useFrame(() => {
-//       if (rotorRef.current) {
-//         rotorRef.current.rotation.z += 0.01; // Adjust the speed as needed
-//       }
-//     });
-  
-//     return (
-//         <>
-//         <group position={position}>
-//         <primitive
-//           object={scene.clone()}
-//           scale={[0.1, 0.1, 0.1]}
-//         />
-//             {/* <primitive object={nodes.Turbine.clone()} scale={[0.1, 0.1, 0.1]}  position={position}> */}
-//                 {/* <primitive ref={rotorRef} object={nodes.Rotor.clone()} position={[0, 0, 1.3]} scale={[1, 1, 1]} > */}
-//                     <axesHelper args={[10]} />
-//                     {/* <group>
-//                         <primitive object={nodes.Blade_1.clone()} />
-//                         <primitive object={nodes.Blade_2.clone()} />
-//                         <primitive object={nodes.Blade_3.clone()} />
-//                     </group> */}
-//                 {/* </primitive> */}
-//             {/* </primitive> */}
-//         {/* </primitive> */}
-//     </group>
-//     </>
-//     );
-//   };
+    return (
+        <>
+        <group position={position}>
+        {/* <primitive
+          object={scene}
+          scale={[0.1, 0.1, 0.1]}
+        /> */}
+            {/* <primitive object={nodes.Turbine.clone()} scale={[0.1, 0.1, 0.1]}  position={position}> */}
+                <primitive object={nodes.Rotor.clone()} position={[0, 0, 1.3]} scale={[1, 1, 1]} > */}
+                    <axesHelper args={[10]} />
+                    <group>
+                        <primitive ref={bladeRef} object={nodes.Blade_1.clone()} />
+                        <primitive object={nodes.Blade_2.clone()} />
+                        <primitive object={nodes.Blade_3.clone()} />
+                    </group>
+                </primitive>
+            {/* </primitive> */}
+        {/* </primitive> */}
+    </group>
+    </>
+    );
+  };
 
   const WindMillFarm =() =>{
     const positions = [];
