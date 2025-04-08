@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { AdditiveBlending, DoubleSide, MathUtils } from "three";
 
-const INSTANCES = 240;
+const INSTANCES = 480;
 const MAX_OPACITY = 0.1;
 
 const SpeedShape = () => {
@@ -13,22 +13,22 @@ const SpeedShape = () => {
     y: 0,
     z: 0,
   };
-  let randomSpeed = 0;
+  let randomSpeed = 10;
 
   const resetRandom = () => {
     randomPosition = {
-      x: MathUtils.randFloatSpread(8),
-      y: MathUtils.randFloatSpread(5),
-      z: MathUtils.randFloatSpread(8),
+      x: MathUtils.randFloatSpread(40),
+      y: Math.random() * 4,
+      z: MathUtils.randFloatSpread(45),
     };
-    randomSpeed = MathUtils.randFloat(16, 20);
+    // randomSpeed = MathUtils.randFloat(16, 20);
   };
   resetRandom();
 
   useFrame((_state, delta) => {
     if (ref.current) {
-      ref.current.position.z += randomSpeed * delta;
-      if (ref.current.position.z > 5) {
+      ref.current.position.z -= randomSpeed * delta;
+      if (ref.current.position.z < -20) {
         resetRandom();
         ref.current.position.z = randomPosition.z;
       }
@@ -54,7 +54,7 @@ const SpeedShape = () => {
         <meshBasicMaterial
           side={DoubleSide}
           blending={AdditiveBlending}
-          opacity={0.2}
+          opacity={1}
           transparent
         />
         {Array(INSTANCES)

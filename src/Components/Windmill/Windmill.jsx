@@ -126,7 +126,7 @@ const Model = () => {
             <GizmoHelper>
                 <GizmoViewport />
             </GizmoHelper>
-            <axesHelper args={[10]} />
+            {/* <axesHelper args={[10]} /> */}
             <gridHelper args={[40,40]}/>
             <OrbitControls />
             <Speed />
