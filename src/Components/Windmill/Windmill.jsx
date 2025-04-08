@@ -5,6 +5,8 @@ import "./Windmill.css"
 import { GizmoHelper, GizmoViewcube, GizmoViewport, OrbitControls, useGLTF } from '@react-three/drei'
 import { useControls } from 'leva'
 import WindModel from "./WindModel"
+import Speed from "../Speed"
+import WorkingModel from "../workingModel/WorkingModel"
 const Box3d = () =>{
     const boxRef = useRef();
 
@@ -111,6 +113,7 @@ const WindMill = ({ position }) => {
         <>
         {positions.map((pos, index) => (
             <WindModel key={index} position={pos} scale={[0.1, 0.1, 0.1]} />
+            // <WorkingModel position={pos} />
         ))}
         </>
     );
@@ -126,11 +129,14 @@ const Model = () => {
             <axesHelper args={[10]} />
             <gridHelper args={[40,40]}/>
             <OrbitControls />
+            <Speed />
             {/* <Box3d /> */}
             {/* <WindModel /> */}
             {/* <WindMill position={[0,0,0]} />  */}
             {/* <WindMill position={[5,1,5]} /> */}
             <WindMillFarm />
+            {/* <WorkingModel /> */}
+            <ambientLight />    
             <directionalLight position={[2,5,2]} />
         </Canvas>
     </div>

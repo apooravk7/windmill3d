@@ -15,19 +15,19 @@ const Model = (props) => {
   const blade3Ref = useRef()
   const pitchRef = useRef()
   useFrame((state, delta) => {
-    // if (rotorRef.current) {
-    //   rotorRef.current.rotation.z += delta * 2 // Adjust speed as needed
-    // }
+    if (rotorRef.current) {
+      rotorRef.current.rotation.z -= delta * 2 // Adjust speed as needed
+    }
 
     // const localAxis2 = new THREE.Vector3(1, 0, 0)
     // const localAxis3 = new THREE.Vector3(0, 0, 1)
     const localBladeAxis = new THREE.Vector3(0, -1, 0)
-    const pitchAngle = 0.01
+    const pitchAngle = 0
     // const pitchAngle = Math.sin(Date.now() * 0.001) * 0.1
     // blade1Ref.current.setRotationFromAxisAngle(axis, angle)
-    if (blade1Ref.current) blade1Ref.current.rotation.y += pitchAngle
-    if (blade2Ref.current) blade2Ref.current.rotation.y += pitchAngle
-      if (blade3Ref.current) blade3Ref.current.rotation.y += pitchAngle
+    if (blade1Ref.current) blade1Ref.current.rotation.y = pitchAngle
+    if (blade2Ref.current) blade2Ref.current.rotation.y = pitchAngle
+      if (blade3Ref.current) blade3Ref.current.rotation.y = pitchAngle
 
     // blade1Ref.current.setRotationFromAxisAngle(localBladeAxis, pitchAngle)
     // blade2Ref.current.setRotationFromAxisAngle(localBladeAxis, pitchAngle)
@@ -37,40 +37,40 @@ const Model = (props) => {
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Turbine.geometry} material={nodes.Turbine.material} position={[0.023, 20.136, -0.264]} scale={[0.619, 0.619, 1.029]}>
-        <mesh geometry={nodes.Rotor.geometry} material={nodes.Rotor.material} position={[0, 0.067, 1.395]} scale={[1.616, 1.616, 0.972]}>
+        <mesh ref={rotorRef} geometry={nodes.Rotor.geometry} material={nodes.Rotor.material} position={[0, 0.067, 1.395]} scale={[1.616, 1.616, 0.972]}>
           {/* <mesh ref={blade1Ref} geometry={nodes.Blade_1.geometry} material={nodes.Blade_1.material} position={[-0.009, 0.009, 0.005]} rotation={[0, 0, -2.095]} scale={[1, 1, 0.972]} />
           <mesh ref={blade2Ref} geometry={nodes.Blade_2.geometry} material={nodes.Blade_2.material} position={[0.013, 0.003, 0.005]} rotation={[0, 0, 2.095]} scale={[1, 1, 0.972]} />
           <mesh ref={blade3Ref} geometry={nodes.Blade_3.geometry} material={nodes.Blade_3.material} position={[-0.004, -0.013, 0.005]} scale={[1, 1, 0.972]} /> */}
           {/* Blade 1 */}
-
+        <group rotation={[0, 0, (2*Math.PI * 2) / 3]}>
         <mesh
-        ref={blade1Ref}
-          geometry={nodes.Blade_1.geometry}
-          material={nodes.Blade_1.material}
-          position={[-0.009, 0.009, 0.005]}
-          rotation={[0, 0, -2.095]}
+          ref={blade1Ref}
+          geometry={nodes.Blade_3.geometry}
+          material={nodes.Blade_3.material}
+          position={[-0.004, -0.013, 0.005]}
           scale={[1, 1, 0.972]}
-        >
-
-          <axesHelper args={[10]} />
-        </mesh>
+        />
+          </group>
+          {/* <axesHelper args={[10]} /> */}
+        {/* </mesh> */}
         {/* <axesHelper args={[10]} /> */}
 
 
       {/* Blade 2 */}
-      <group ref={blade2Ref}>
+      <group>
         <mesh
-          geometry={nodes.Blade_2.geometry}
-          material={nodes.Blade_2.material}
-          position={[0.013, 0.003, 0.005]}
-          rotation={[0, 0, 2.095]}
+          ref={blade2Ref}
+          geometry={nodes.Blade_3.geometry}
+          material={nodes.Blade_3.material}
+          position={[-0.004, -0.013, 0.005]}
           scale={[1, 1, 0.972]}
         />
       </group>
 
       {/* Blade 3 */}
-      <group ref={blade3Ref}>
+      <group rotation={[0, 0, (Math.PI * 2) / 3]} >
         <mesh
+          ref={blade3Ref}
           geometry={nodes.Blade_3.geometry}
           material={nodes.Blade_3.material}
           position={[-0.004, -0.013, 0.005]}
